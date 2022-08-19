@@ -3,6 +3,12 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
-      - uses:actions/checkout@v3
-      - name:Percy Test
-        run:npx @percy/cli snapshot _site/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Install
+        run: yarn
+      - name: Percy Test
+        uses: percy/exec-action@v0.3.1
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
